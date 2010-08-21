@@ -39,7 +39,8 @@ module Padrino
       def user(scope=nil)
         scope ? warden.user(scope) : warden.user
       end
-      alias_method :current_user, :user, :current_account
+      alias_method :current_user, :user
+      alias_method :current_account, :user
 
       # Store the logged in user in the session
       #
