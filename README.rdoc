@@ -17,19 +17,19 @@ Warden (http://github.com/hassox/warden).
 	  end
 
 	  register Padrino::Warden
-  
- 
+
+
 	  class User
 	    attr_reader :name
 	    def initialize(name)
 	      @name=name
 	    end
-   
+
 	    def self.authenticate(a, b)
 	      return User.new('john')
 	    end
 	  end
- 
+
 	  Warden::Strategies.add(:password) do
 	    def valid?
 	      params["email"] || params["password"]
@@ -40,7 +40,7 @@ Warden (http://github.com/hassox/warden).
 	      u.nil? ? fail!("Could not log in") : success!(u)
 	    end
 	  end
-	
+
 	  Warden::Manager.serialize_into_session do |user|
 	    user.id
 	  end
@@ -48,7 +48,7 @@ Warden (http://github.com/hassox/warden).
 	  Warden::Manager.serialize_from_session do |id|
 	    User.get(id)
 	  end
-	
+
 	end
 
 Run this to see your new routes:
@@ -60,9 +60,10 @@ You can now login at
 
 After login you can fiddle with +current_user+ for anything you need.
 
+NOTE: Try to make all helpers compatable with padrino admin generator AuthenticationHelpers so the over all project authethication to be possible by Warden
 
 == Note on Patches/Pull Requests
- 
+
 * Fork the project.
 * Make your feature addition or bug fix.
 * Add tests for it. This is important so I don't break it in a

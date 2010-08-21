@@ -39,7 +39,7 @@ module Padrino
       def user(scope=nil)
         scope ? warden.user(scope) : warden.user
       end
-      alias_method :current_user, :user
+      alias_method :current_user, :user, :current_account
 
       # Store the logged in user in the session
       #
@@ -80,12 +80,12 @@ module Padrino
       app.set :auth_login_template, 'sessions/login'
       # OAuth Specific Settings
       app.set :auth_use_oauth, false
-      
+
       app.use ::Warden::Manager do |manager|
           manager.default_strategies :password
           manager.failure_app = app
       end
-      
+
       app.controller :sessions do
         post :unauthenticated do
           status 401
@@ -117,7 +117,7 @@ module Padrino
         post :login do
           authenticate
           env['x-rack.flash'][:success] = options.auth_success_message if defined?(Rack::Flash)
-          redirect options.auth_use_referrer && session[:return_to] ? session.delete(:return_to) : 
+          redirect options.auth_use_referrer && session[:return_to] ? session.delete(:return_to) :
                    options.auth_success_path
         end
 
