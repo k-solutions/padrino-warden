@@ -75,12 +75,12 @@ module Padrino
       # Setting this to true will store last request URL
       # into a user's session so that to redirect back to it
       # upon successful authentication
-      app.set :auth_use_referrer, false
+      app.set :auth_use_referrer,    true
       app.set :auth_error_message,   "Could not log you in."
       app.set :auth_success_message, "You have logged in successfully."
-      app.set :auth_login_template, 'sessions/login'
+      app.set :auth_login_template,  'sessions/login'
       # OAuth Specific Settings
-      app.set :auth_use_oauth, false
+      app.set :auth_use_oauth, true
 
       app.use ::Warden::Manager do |manager|
           manager.default_strategies :password
